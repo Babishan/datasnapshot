@@ -1,7 +1,9 @@
 package com.codingtask.datasnapshot.service;
 
+import com.codingtask.datasnapshot.controller.CorruptDataController;
 import com.codingtask.datasnapshot.entity.CorruptData;
 import com.codingtask.datasnapshot.entity.ReconData;
+import com.codingtask.datasnapshot.exception.LineParseException;
 import com.codingtask.datasnapshot.repository.CorruptDataRepository;
 import com.codingtask.datasnapshot.repository.ReconDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Logger;
 
 @Service
 @Validated
@@ -34,8 +37,14 @@ public class ReconDataService {
     @Autowired
     private Validator validator;
 
+    private static final Logger logger = Logger.getLogger(ReconDataService.class.getName());
+
     public List<ReconData> findAllData() {
         return reconDataRepository.findAll();
+    }
+
+    public List<CorruptData> findAllCorruptData() {
+        return corruptDataRepository.findAll();
     }
 
     public ReconData addData(ReconData reconData) {
@@ -65,6 +74,9 @@ public class ReconDataService {
     public ReconData convert(String line) throws ParseException {
 
         String[] metadata = line.split(",");
+
+        if(metadata.length < 4) throw new LineParseException(" Unparseable line "+line);
+
         String id = metadata[0];
         String name = metadata[1];
         String description = metadata[2];
@@ -89,7 +101,14 @@ public class ReconDataService {
                 if(!line.trim().isEmpty()) {
                     try {
                         data = convert(line);
+                    } catch (LineParseException lineParseException){
+                        logger.info(lineParseException.getMessage());
+                        CorruptData corruptData = new CorruptData("LINE_CANT_BE_PARSED", line);
+                        this.addCorruptData(corruptData);
+                        line = reader.readLine();
+                        continue;
                     } catch (ParseException e) {
+                        logger.info(e.toString());
                         CorruptData corruptData = new CorruptData("NOT_A_TIMESTAMP", line);
                         this.addCorruptData(corruptData);
                         line = reader.readLine();
@@ -119,6 +138,7 @@ public class ReconDataService {
                     CorruptData corruptData=new CorruptData(reason,line);
                     this.addCorruptData(corruptData);
                 }
+
                 line = reader.readLine();
 
             }

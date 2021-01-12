@@ -50,6 +50,8 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter implements Web
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
                 .antMatchers(HttpMethod.GET,"/corruptdata/count").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/actuator/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/h2").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("ADMIN","USER")
                 .and()
@@ -61,6 +63,7 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter implements Web
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.codingtask.datasnapshot"))
+                //.apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }

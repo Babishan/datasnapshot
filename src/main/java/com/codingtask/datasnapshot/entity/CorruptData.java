@@ -29,14 +29,27 @@ public class CorruptData {
         return id;
     }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
     public String getRawData() {
         return rawData;
+    }
+
+    public void setRawData(String rawData) {
+        this.rawData = rawData;
     }
 
     @Override
     public String toString() {
         return "CorruptData{" +
                 "id=" + id +
+                ", reason='" + reason + '\'' +
                 ", rawData='" + rawData + '\'' +
                 '}';
     }
