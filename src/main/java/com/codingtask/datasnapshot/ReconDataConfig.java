@@ -49,7 +49,7 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter implements Web
                 .csrf().disable() // Replace with csrf token provider repository
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
-                .antMatchers(HttpMethod.GET,"/corruptdata/count").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/corruptdata/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/actuator/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/h2").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
