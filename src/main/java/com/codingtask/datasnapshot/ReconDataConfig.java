@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -20,7 +21,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableSwagger2
-public class ReconDataConfig extends WebSecurityConfigurerAdapter {
+public class ReconDataConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
     @Autowired
     private DataSource dataSource;
 
@@ -48,7 +49,7 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // Replace with csrf token provider repository
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/").permitAll()
-                .antMatchers(HttpMethod.GET,"/recondata/corruptdatacount").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET,"/corruptdata/count").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("ADMIN","USER")
                 .and()
@@ -63,4 +64,5 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter {
                 .paths(PathSelectors.any())
                 .build();
     }
+
 }

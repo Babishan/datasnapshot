@@ -1,0 +1,12 @@
+#!/bin/bash
+# To use in AWS EC2 user data script
+sudo apt update
+sudo apt install git -y
+sudo apt install default-jdk -y
+sudo apt install maven -y
+if [ -e datasnapshot ] ; then rm -rf datasnapshot ; fi
+git clone https://github.com/Babishan/datasnapshot.git
+cd datasnapshot
+export JAVA_SRC=$(pwd)
+$JAVA_SRC/mvnw clean
+$JAVA_SRC/mvnw spring-boot:run

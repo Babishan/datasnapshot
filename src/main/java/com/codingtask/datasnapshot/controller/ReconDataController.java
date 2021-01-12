@@ -35,24 +35,4 @@ public class ReconDataController {
     public void deleteDataById(@PathVariable String id) {
         reconDataService.deleteDataById(id);
     }
-
-    @PostMapping("/uploaddata")
-    public ResponseEntity<String> uploadData(@RequestParam("file") MultipartFile file) throws Exception {
-
-        if (file == null) {
-            throw new RuntimeException("You must select the a file for uploading");
-        }
-
-        InputStream inputStream = file.getInputStream();
-        String originalName = file.getOriginalFilename();
-        String contentType = file.getContentType();
-
-        reconDataService.validateAndPersist(inputStream);
-
-        return new ResponseEntity<String>(originalName, HttpStatus.OK);
-    }
-    @GetMapping("/corruptdatacount")
-    public long corruptDataCount() {
-        return reconDataService.findCorruptDataCount();
-    }
 }
