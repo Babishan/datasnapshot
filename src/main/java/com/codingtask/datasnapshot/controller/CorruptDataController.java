@@ -1,6 +1,7 @@
 package com.codingtask.datasnapshot.controller;
 
 import com.codingtask.datasnapshot.entity.CorruptData;
+import com.codingtask.datasnapshot.service.CorruptDataService;
 import com.codingtask.datasnapshot.service.ReconDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +18,15 @@ public class CorruptDataController {
     private static final Logger logger = Logger.getLogger(CorruptDataController.class.getName());
 
     @Autowired
-    private ReconDataService reconDataService;
+    private CorruptDataService corruptDataService;
 
     @GetMapping("/")
     public List<CorruptData> findAllData() {
-        return reconDataService.findAllCorruptData();
+        return corruptDataService.findAllCorruptData();
     }
 
     @GetMapping("/count")
     public long corruptDataCount() {
-        return reconDataService.findCorruptDataCount();
+        return corruptDataService.findCorruptDataCount();
     }
 }
