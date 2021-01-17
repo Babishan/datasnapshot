@@ -1,11 +1,8 @@
 package com.codingtask.datasnapshot.service;
 
-import com.codingtask.datasnapshot.controller.CorruptDataController;
-import com.codingtask.datasnapshot.entity.CorruptData;
 import com.codingtask.datasnapshot.entity.ReconData;
 import com.codingtask.datasnapshot.exception.LineParseException;
 import com.codingtask.datasnapshot.parser.ReconDataParser;
-import com.codingtask.datasnapshot.repository.CorruptDataRepository;
 import com.codingtask.datasnapshot.repository.ReconDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

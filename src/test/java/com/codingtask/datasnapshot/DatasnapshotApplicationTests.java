@@ -1,10 +1,7 @@
 package com.codingtask.datasnapshot;
 
-import com.codingtask.datasnapshot.entity.ReconData;
 import com.codingtask.datasnapshot.parser.ReconDataParser;
-import com.codingtask.datasnapshot.service.ReconDataService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.ParseException;
