@@ -5,6 +5,9 @@ spring:
     console:
       enabled: true
       path: /h2
+      #settings:
+        #trace: true
+        #web-allow-others: true
   datasource:
     url: jdbc:h2:./data/db
     username: sa
@@ -15,11 +18,11 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
-        format_sql: false
-        show_sql: false
+        format_sql: true
+        show_sql: true
     hibernate:
       ddl-auto: update
-    show-sql: false
+    show-sql: true
   http:
     multipart:
       max-file-size: 10MB

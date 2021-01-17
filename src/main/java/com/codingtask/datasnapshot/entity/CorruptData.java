@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class CorruptData {
     @Id
     @Column(name = "GENERATED_PRIMARY_KEY")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Integer id;
 
     @Column(name = "REASON")

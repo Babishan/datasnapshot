@@ -51,7 +51,7 @@ public class ReconDataConfig extends WebSecurityConfigurerAdapter implements Web
                 .antMatchers(HttpMethod.GET,"/").permitAll()
                 .antMatchers(HttpMethod.GET,"/corruptdata/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET,"/actuator/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.GET,"/h2").hasRole("ADMIN")
+                //.antMatchers(HttpMethod.GET,"/h2").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                 .antMatchers("/**").hasAnyRole("ADMIN","USER")
                 .and()
