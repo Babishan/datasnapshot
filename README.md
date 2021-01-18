@@ -1,4 +1,4 @@
-### Getting Started
+# Getting Started
 
 ### Building and running the project in local
 This Spring Boot project uses Maven as build tool.
