@@ -81,8 +81,8 @@ public class ReconDataService {
     }
     public void validateAndPersist(InputStream inputStream){
 
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
+
             String header = reader.readLine();
             reader
                     .lines()
