@@ -65,8 +65,8 @@ public class ReconDataService {
             } else {
                 String reason= constrainViolationSet
                         .stream()
-                        .map(reconDataConstraintViolation -> reconDataConstraintViolation.getMessage() + " ,")
-                        .collect(Collectors.joining());
+                        .map(reconDataConstraintViolation -> reconDataConstraintViolation.getMessage())
+                        .collect(Collectors.joining(" ,"));
                 this.corruptDataService.addCorruptData(reason,line);
             }
 
