@@ -3,7 +3,6 @@ FROM ubuntu:16.04
 LABEL maintainer="babishan@testmail.com"
 
 RUN apt update
-RUN apt install git -y
 RUN apt install default-jdk -y
 
 WORKDIR /app
