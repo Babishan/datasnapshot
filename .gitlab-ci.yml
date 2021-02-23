@@ -1,0 +1,23 @@
+image: creatiwww/docker-compose:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - docker-compose build
+  only:
+    - master
+
+deploy:
+  stage: build
+  script:
+    - docker-compose up
+  only:
+    - master
+  when: manual
