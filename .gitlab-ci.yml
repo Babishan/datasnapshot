@@ -12,7 +12,11 @@ stages:
 preapare:
   stage: prepare
   script:
-    - src/main/scripts/datasnapshot_install_ubuntu-1604.sh
+    - sudo apt update
+    - sudo apt install git -y
+    - sudo apt install default-jdk -y
+    - sudo apt install docker -y
+    - sudo apt install docker-compose -y
   only:
     - master
 
