@@ -12,11 +12,11 @@ stages:
 preapare:
   stage: prepare
   script:
-    - sudo apt update
-    - sudo apt install git -y
-    - sudo apt install default-jdk -y
-    - sudo apt install docker -y
-    - sudo apt install docker-compose -y
+    - apt update
+    - apt install git -y
+    - apt install default-jdk -y
+    - apt install docker -y
+    - apt install docker-compose -y
   only:
     - master
 
