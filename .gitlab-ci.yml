@@ -1,7 +1,7 @@
 image: ubuntu:16.04
 
 variables:
-  JAVA_HOME: /usr/lib/jvm/open-jdk
+  JAVA_HOME: /usr/lib/jvm/default-java
 
 stages:
   - prepare
