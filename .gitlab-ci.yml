@@ -1,23 +1,28 @@
-image: creatiwww/docker-compose:latest
-
-services:
-  - docker:dind
+variables:
+  JAVA_HOME: /usr/lib/jvm/open-jdk
 
 stages:
+  - clean
   - build
   - deploy
+
+clean:
+  stage: clean
+  script:
+    - ./mvnw clean
+  only:
+    - master
 
 build:
   stage: build
   script:
-    - echo $JAVA_HOME
-    - ./mvnw clean package
+    - ./mvnw package
     - docker-compose build
   only:
     - master
 
 deploy:
-  stage: build
+  stage: deploy
   script:
     - docker-compose up
   only:
