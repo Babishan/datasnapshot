@@ -3,9 +3,6 @@ image: creatiwww/docker-compose:latest
 services:
   - docker:dind
 
-variables:
-  JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-
 stages:
   - build
   - deploy
@@ -13,6 +10,7 @@ stages:
 build:
   stage: build
   script:
+    - echo $JAVA_HOME
     - ./mvnw clean package
     - docker-compose build
   only:
