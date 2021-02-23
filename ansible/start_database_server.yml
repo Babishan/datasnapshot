@@ -1,0 +1,15 @@
+- name: Start postgres db server
+  hosts:  localhost
+  tasks:
+    - community.docker.docker_container:
+        name: postgres
+        hostname: postgres
+        image: postgres
+        restart: yes
+        ports:
+        - "5432:5432"
+        env:
+          POSTGRES_DB: datasnapshot
+          POSTGRES_USER: dbuser
+          POSTGRES_PASSWORD: dbpassword
+        network_mode: datasnapshot

@@ -1,0 +1,7 @@
+- name: Pull ubuntu base image
+  hosts:  localhost
+  tasks:
+    - name: pull
+      docker_image:
+        name: ubuntu:16.04
+        source: pull

@@ -1,0 +1,7 @@
+- name: Build docker images
+  hosts: localhost
+  tasks:
+    - name: Build management docker image
+      command: docker build -t babishan/management:1.0 ../management
+    - name: Build webservice docker image
+      command: docker build -t babishan/webservice:1.0 ../webservice

@@ -28,7 +28,7 @@ services:
     restart: always
   prod:
     build: webservice
-    hostname: devservice
+    hostname: prodservice
 #    image: babishan/webservice:1.0
     ports:
        - "8080:8080"

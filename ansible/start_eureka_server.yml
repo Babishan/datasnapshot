@@ -1,0 +1,11 @@
+- name: Start Eureka server
+  hosts: localhost
+  tasks:
+    - community.docker.docker_container:
+        name: eureka
+        hostname: eureka
+        image: babishan/management:1.0
+        restart: yes
+        ports:
+          - "8761:8761"
+        network_mode: datasnapshot

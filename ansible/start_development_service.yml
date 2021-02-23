@@ -1,0 +1,13 @@
+- name: Start Development webservice
+  hosts: localhost
+  tasks:
+    - community.docker.docker_container:
+        name: devservice
+        hostname: devservice
+        image: babishan/webservice:1.0
+        restart: yes
+        ports:
+          - "8081:8080"
+        env:
+          SPRING_PROFILES_ACTIVE: dev
+        network_mode: datasnapshot
