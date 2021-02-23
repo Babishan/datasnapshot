@@ -1,0 +1,22 @@
+- name: validator
+  hosts: localhost
+  connection: local
+  tasks:
+   - name: validate eureka server
+     uri:
+       url: http://localhost:8761
+       return_content: yes
+     register: eureka
+     failed_when: "'Instances currently registered with Eureka' not in eureka.content"
+   - name: validate prod webservice
+     uri:
+       url: http://localhost:8080/login
+       return_content: yes
+     register: prodservice
+     failed_when: "'Please sign in' not in prodservice.content"
+   - name: validate dev webservice
+     uri:
+       url: http://localhost:8081/login
+       return_content: yes
+     register: devservice
+     failed_when: "'Please sign in' not in devservice.content"
