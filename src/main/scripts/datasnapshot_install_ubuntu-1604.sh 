@@ -5,15 +5,17 @@
 sudo apt update
 sudo apt install git -y
 sudo apt install default-jdk -y
+sudo apt install docker -y
+sudo apt install docker-compose -y
 
 #run below commands with user privileges
-/usr/bin/sudo -n -H -u ubuntu /bin/bash -l -c '
-cd $HOME
-if [ -e datasnapshot ] ; then rm -rf datasnapshot ; fi
-git clone https://github.com/Babishan/datasnapshot.git
-cd datasnapshot
-export JAVA_SRC=$(pwd)
-$JAVA_SRC/mvnw clean package
-$JAVA_HOME/bin/java -jar -Dspring.profiles.active=prod management/target/management-0.0.1.jar  >> /tmp/management.log 2>&1 &
-$JAVA_HOME/bin/java -jar -Dspring.profiles.active=prod webservice/target/webservice-0.0.1.jar  >> /tmp/webservice.log 2>&1 &
+#/usr/bin/sudo -n -H -u ubuntu /bin/bash -l -c '
+#cd $HOME
+#if [ -e datasnapshot ] ; then rm -rf datasnapshot ; fi
+#git clone https://github.com/Babishan/datasnapshot.git
+#cd datasnapshot
+#export JAVA_SRC=$(pwd)
+#$JAVA_SRC/mvnw clean package
+#$JAVA_HOME/bin/java -jar -Dspring.profiles.active=prod management/target/management-0.0.1.jar  >> /tmp/management.log 2>&1 &
+#$JAVA_HOME/bin/java -jar -Dspring.profiles.active=prod webservice/target/webservice-0.0.1.jar  >> /tmp/webservice.log 2>&1 &
 '

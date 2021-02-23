@@ -4,7 +4,7 @@ variables:
   JAVA_HOME: /usr/lib/jvm/open-jdk
 
 stages:
-  - prepate
+  - prepare
   - clean
   - build
   - deploy
