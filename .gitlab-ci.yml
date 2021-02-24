@@ -2,7 +2,7 @@ image: ubuntu:latest
 
 variables:
   JAVA_HOME: /usr/lib/jvm/default-java
-  DOCKER_HOST: ec2-18-192-63-128.eu-central-1.compute.amazonaws.com
+#  DOCKER_HOST: ec2-18-192-63-128.eu-central-1.compute.amazonaws.com
 
 stages:
   - clean
@@ -16,6 +16,7 @@ clean:
     - apt install default-jdk -y
     - apt install docker -y
     - apt install docker-compose -y
+    - systemctl enable docker
   script:
     - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
@@ -29,6 +30,7 @@ build:
     - apt install default-jdk -y
     - apt install docker -y
     - apt install docker-compose -y
+    - systemctl enable docker
   script:
     - ./mvnw package
     - docker-compose build
@@ -42,6 +44,7 @@ deploy:
     - apt install default-jdk -y
     - apt install docker -y
     - apt install docker-compose -y
+    - systemctl enable docker
   script:
     - docker-compose up
   only:
