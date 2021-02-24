@@ -1,7 +1,7 @@
-image: alpine:latest
+image: debian:latest
 
 variables:
-  JAVA_HOME: /usr/lib/jvm/default-jvm
+  JAVA_HOME: /usr/lib/jvm/default-java
 #  DOCKER_HOST:
 
 stages:
@@ -12,10 +12,10 @@ stages:
 clean:
   stage: clean
   before_script:
-    - apk update
-    - apk upgrade
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
+    - apt update
+    - apt install default-jre-headless -y
+    - apt install docker docker-compose -y
+    - service docker start
   script:
     - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
@@ -25,10 +25,10 @@ clean:
 build:
   stage: build
   before_script:
-    - apk update
-    - apk upgrade
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
+    - apt update
+    - apt install default-jre-headless -y
+    - apt install docker docker-compose -y
+    - service docker start
   script:
     - ./mvnw package
     - docker-compose build
@@ -38,10 +38,10 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - apk update
-    - apk upgrade
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
+    - apt update
+    - apt install default-jre-headless -y
+    - apt install docker docker-compose -y
+    - service docker start
   script:
     - docker-compose up
   only:

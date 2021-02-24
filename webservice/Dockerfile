@@ -1,10 +1,9 @@
-FROM alpine:latest
+FROM debian:latest
 
 LABEL maintainer="babishan@testmail.com"
 
-RUN apk update
-RUN apk upgrade
-RUN apk add openjdk11-jre-headless
+RUN apt update
+RUN apt install default-jre-headless -y
 
 WORKDIR /app
 
