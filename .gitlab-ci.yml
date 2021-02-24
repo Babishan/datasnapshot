@@ -4,24 +4,18 @@ variables:
   JAVA_HOME: /usr/lib/jvm/default-java
 
 stages:
-  - prepare
   - clean
   - build
   - deploy
 
-preapare:
-  stage: prepare
-  script:
+clean:
+  stage: clean
+  before_script:
     - apt update
     - apt install git -y
     - apt install default-jdk -y
     - apt install docker -y
     - apt install docker-compose -y
-  only:
-    - master
-
-clean:
-  stage: clean
   script:
     - ./mvnw clean
   only:
