@@ -12,10 +12,7 @@ clean:
   stage: clean
   before_script:
     - apt update
-    - apt install git -y
     - apt install default-jdk -y
-    - apt install docker -y
-    - apt install docker-compose -y
   script:
     - ./mvnw clean
   only:
@@ -23,6 +20,11 @@ clean:
 
 build:
   stage: build
+  before_script:
+    - apt update
+    - apt install default-jdk -y
+    - apt install docker -y
+    - apt install docker-compose -y
   script:
     - ./mvnw package
     - docker-compose build
@@ -31,6 +33,11 @@ build:
 
 deploy:
   stage: deploy
+  before_script:
+    - apt update
+    - apt install default-jdk -y
+    - apt install docker -y
+    - apt install docker-compose -y
   script:
     - docker-compose up
   only:
