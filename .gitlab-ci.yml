@@ -1,8 +1,8 @@
-image: ubuntu:latest
+image: alpine:latest
 
 variables:
-  JAVA_HOME: /usr/lib/jvm/default-java
-#  DOCKER_HOST: ec2-18-192-63-128.eu-central-1.compute.amazonaws.com
+  JAVA_HOME: /usr/lib/jvm/default-jvm
+#  DOCKER_HOST:
 
 stages:
   - clean
@@ -12,11 +12,10 @@ stages:
 clean:
   stage: clean
   before_script:
-    - apt update
-    - apt install default-jdk -y
-    - apt install docker -y
-    - apt install docker-compose -y
-    - systemctl enable docker
+    - apk update
+    - apk upgrade
+    - apk add openjdk11-jre-headless
+    - apk add docker-compose
   script:
     - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
@@ -26,11 +25,10 @@ clean:
 build:
   stage: build
   before_script:
-    - apt update
-    - apt install default-jdk -y
-    - apt install docker -y
-    - apt install docker-compose -y
-    - systemctl enable docker
+    - apk update
+    - apk upgrade
+    - apk add openjdk11-jre-headless
+    - apk add docker-compose
   script:
     - ./mvnw package
     - docker-compose build
@@ -40,11 +38,10 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - apt update
-    - apt install default-jdk -y
-    - apt install docker -y
-    - apt install docker-compose -y
-    - systemctl enable docker
+    - apk update
+    - apk upgrade
+    - apk add openjdk11-jre-headless
+    - apk add docker-compose
   script:
     - docker-compose up
   only:

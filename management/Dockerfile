@@ -1,9 +1,10 @@
-FROM ubuntu:16.04
+FROM alpine:latest
 
 LABEL maintainer="babishan@testmail.com"
 
-RUN apt update
-RUN apt install default-jdk -y
+RUN apk update
+RUN apk upgrade
+RUN apk add openjdk11-jre-headless
 
 WORKDIR /app
 
