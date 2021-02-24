@@ -13,7 +13,10 @@ clean:
   before_script:
     - apt update
     - apt install default-jdk -y
+    - apt install docker -y
+    - apt install docker-compose -y
   script:
+    - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
   only:
     - master
