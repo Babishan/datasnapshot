@@ -1,4 +1,4 @@
-image: ubuntu:16.04
+image: ubuntu:latest
 
 variables:
   JAVA_HOME: /usr/lib/jvm/default-java
