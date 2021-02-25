@@ -2,7 +2,7 @@ image: debian:latest
 
 variables:
   JAVA_HOME: /usr/lib/jvm/default-java
-  DOCKER_HOST: "ec2-18-192-63-128.eu-central-1.compute.amazonaws.com:52020"
+  DOCKER_HOST: "unix:///var/run/docker.sock"
 
 stages:
   - clean
