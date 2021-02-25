@@ -1,46 +1,63 @@
-image: docker:dind
-
 variables:
-  JAVA_HOME: /usr/lib/jvm/default-java-11-openjdk
-  DOCKER_HOST: "unix:///var/run/docker.sock"
+  DOCKER_DRIVER: overlay2
+
+services:
+  - docker:dind
 
 stages:
-  - clean
-  - build
-  - deploy
+  - preapare
 
-clean:
-  stage: clean
-  before_script:
-    - apk update
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
+publish-docker:
+  stage: prepare
+  image: docker
   script:
-    - docker-compose down -v --rmi all --remove-orphans
-    - ./mvnw clean
-  only:
-    - master
+    - echo "Hello"
+    - echo "Hello"
+    - echo "Hello"
 
-build:
-  stage: build
-  before_script:
-    - apk update
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
-  script:
-    - ./mvnw package
-    - docker-compose build
-  only:
-    - master
-
-deploy:
-  stage: deploy
-  before_script:
-    - apk update
-    - apk add openjdk11-jre-headless
-    - apk add docker-compose
-  script:
-    - docker-compose up
-  only:
-    - master
-  when: manual
+#image: docker:dind
+#
+#variables:
+#  JAVA_HOME: /usr/lib/jvm/default-java-11-openjdk
+#  DOCKER_HOST: "unix:///var/run/docker.sock"
+#
+#stages:
+#  - clean
+#  - build
+#  - deploy
+#
+#clean:
+#  stage: clean
+#  before_script:
+#    - apk update
+#    - apk add openjdk11-jre-headless
+#    - apk add docker-compose
+#  script:
+#    - docker-compose down -v --rmi all --remove-orphans
+#    - ./mvnw clean
+#  only:
+#    - master
+#
+#build:
+#  stage: build
+#  before_script:
+#    - apk update
+#    - apk add openjdk11-jre-headless
+#    - apk add docker-compose
+#  script:
+#    - ./mvnw package
+#    - docker-compose build
+#  only:
+#    - master
+#
+#deploy:
+#  stage: deploy
+#  before_script:
+#    - apk update
+#    - apk add openjdk11-jre-headless
+#    - apk add docker-compose
+#  script:
+#    - docker-compose up
+#  only:
+#    - master
+#  when: manual
