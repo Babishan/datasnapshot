@@ -5,9 +5,9 @@ services:
   - docker:dind
 
 stages:
-  - preapare
+  - prepare
 
-prepare:
+prepare-docker:
   stage: prepare
   image: docker
   script:
