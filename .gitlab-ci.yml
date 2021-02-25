@@ -1,7 +1,7 @@
-image: debian:latest
+image: docker:dind
 
 variables:
-  JAVA_HOME: /usr/lib/jvm/default-java
+  JAVA_HOME: /usr/lib/jvm/default-java-11-openjdk
 #  DOCKER_HOST: "unix:///var/run/docker.sock"
 
 stages:
@@ -12,11 +12,8 @@ stages:
 clean:
   stage: clean
   before_script:
-    - apt update
-    - apt install default-jre-headless -y
-    - apt install docker docker-compose -y
-    - usermod -aG docker $USER
-    - service docker start
+    - apk update
+    - apk add openjdk11-jre-headless -y
   script:
     - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
@@ -26,11 +23,8 @@ clean:
 build:
   stage: build
   before_script:
-    - apt update
-    - apt install default-jre-headless -y
-    - apt install docker docker-compose -y
-    - usermod -aG docker $USER
-    - service docker start
+    - apk update
+    - apk add openjdk11-jre-headless -y
   script:
     - ./mvnw package
     - docker-compose build
@@ -40,11 +34,8 @@ build:
 deploy:
   stage: deploy
   before_script:
-    - apt update
-    - apt install default-jre-headless -y
-    - apt install docker docker-compose -y
-    - usermod -aG docker $USER
-    - service docker start
+    - apk update
+    - apk add openjdk11-jre-headless -y
   script:
     - docker-compose up
   only:
