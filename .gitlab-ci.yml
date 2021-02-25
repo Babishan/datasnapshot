@@ -6,7 +6,7 @@ services:
 
 stages:
   - prepare
-  - build
+#  - build
 
 prepare-docker:
   stage: prepare
@@ -17,14 +17,14 @@ prepare-docker:
     - docker images
     - echo "Hello"
 
-build-docker:
-  stage: build
-  image: docker
-  script:
-    - echo "Hello"
-    - docker build -t babishan/webservice:1.0 webservice
-    - docker build -t babishan/management:1.0 management
-    - echo "Hello"
+#build-docker:
+#  stage: build
+#  image: docker
+#  script:
+#    - echo "Hello"
+#    - docker build -t babishan/webservice:1.0 webservice
+#    - docker build -t babishan/management:1.0 management
+#    - echo "Hello"
 
 #image: docker:dind
 #
