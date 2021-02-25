@@ -7,7 +7,7 @@ services:
 stages:
   - preapare
 
-publish-docker:
+prepare:
   stage: prepare
   image: docker
   script:
