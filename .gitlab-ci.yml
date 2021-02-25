@@ -13,7 +13,7 @@ clean:
   stage: clean
   before_script:
     - apk update
-    - apk add openjdk11-jre-headless -y
+    - apk add openjdk11-jre-headless
   script:
     - docker-compose down -v --rmi all --remove-orphans
     - ./mvnw clean
@@ -24,7 +24,7 @@ build:
   stage: build
   before_script:
     - apk update
-    - apk add openjdk11-jre-headless -y
+    - apk add openjdk11-jre-headless
   script:
     - ./mvnw package
     - docker-compose build
@@ -35,7 +35,7 @@ deploy:
   stage: deploy
   before_script:
     - apk update
-    - apk add openjdk11-jre-headless -y
+    - apk add openjdk11-jre-headless
   script:
     - docker-compose up
   only:
