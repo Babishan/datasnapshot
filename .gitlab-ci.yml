@@ -4,7 +4,7 @@ stages:
 prepare-docker:
   stage: prepare
   before_script:
-    - docker info
+    - ansible --version
   script:
     - echo "Hello"
     - docker ps -a
