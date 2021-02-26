@@ -9,6 +9,7 @@ prepare-ansible:
   stage: prepare
   before_script:
     - ansible --version
+    - ls -ltr
   script:
     - echo "Hello"
     - docker ps -a
