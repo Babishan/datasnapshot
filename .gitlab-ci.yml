@@ -22,6 +22,7 @@ build-using-ansible:
   before_script:
     - ansible-galaxy collection install community.docker
     - ansible-playbook ansible/create_docker_network.yml
+    - $PROJECT_DIR/mvnw clean package
   script:
     - ansible-playbook ansible/build_docker_images.yml
 #
