@@ -2,6 +2,10 @@ variables:
   JAVA_HOME: /usr/lib/jvm/default-java
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
+  PROD_HOST: ec2-18-192-69-169.eu-central-1.compute.amazonaws.com
+  PROD_USER: produser
+  DEV_HOST: ec2-54-93-189-92.eu-central-1.compute.amazonaws.com
+  DEV_USER: devuser
 
 stages:
   - prepare
@@ -21,51 +25,63 @@ prepare-ansible:
     - docker images
     - echo "Hello"
 
-clean-environment:
+clean-local-environment:
+  stage : clean
+  script:
+    - $PROJECT_DIR/mvnw clean
+
+clean-dev-environment:
   stage : clean
   before_script:
-    - $PROJECT_DIR/mvnw clean
+    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST"
   script:
     - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
 
-build-using-ansible:
-  stage: build
+clean-prod-environment:
+  stage : clean
   before_script:
-    - ansible-galaxy collection install community.docker
+    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST"
   script:
-    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-    - $PROJECT_DIR/mvnw package
-    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
+    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
 
-start-eureka-server:
-  stage: deploy
-  script:
-    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
-
-start-dev-service-using-ansible:
-  stage: deploy
-  script:
-    - ansible-playbook $ANSIBLE_DIR/start_development_service.yml
-
-validate-dev-service-using-ansible :
-  stage: validate
-  script:
-    - ansible-playbook $ANSIBLE_DIR/validate_dev_service.yml
-
-start-prod-service-using-ansible:
-  stage: deploy
-  before_script:
-    - ansible-playbook $ANSIBLE_DIR/start_database_server.yml
-  script:
-    - ansible-playbook $ANSIBLE_DIR/start_production_service.yml
-  only:
-    - master
-  when: manual
-
-validate-prod-service-using-ansible :
-  stage: validate
-  script:
-    - ansible-playbook $ANSIBLE_DIR/validate_prod_service.yml
-  only:
-    - master
-  when: manual
+#build-using-ansible:
+#  stage: build
+#  before_script:
+#    - ansible-galaxy collection install community.docker
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+#    - $PROJECT_DIR/mvnw package
+#    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
+#
+#start-eureka-server:
+#  stage: deploy
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+#
+#start-dev-service-using-ansible:
+#  stage: deploy
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/start_development_service.yml
+#
+#validate-dev-service-using-ansible :
+#  stage: validate
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/validate_dev_service.yml
+#
+#start-prod-service-using-ansible:
+#  stage: deploy
+#  before_script:
+#    - ansible-playbook $ANSIBLE_DIR/start_database_server.yml
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/start_production_service.yml
+#  only:
+#    - master
+#  when: manual
+#
+#validate-prod-service-using-ansible :
+#  stage: validate
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/validate_prod_service.yml
+#  only:
+#    - master
+#  when: manual
