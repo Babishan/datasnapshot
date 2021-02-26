@@ -3,10 +3,11 @@
 
 #run below commands with root privileges
 sudo apt update
-sudo apt install git -y
-sudo apt install default-jdk -y
-sudo apt install docker -y
-sudo apt install docker-compose -y
+sudo apt upgrade -y
+sudo apt install curl git default-jdk -y
+sudo apt install docker docker-compose ansible -y
+curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
+export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E apt install gitlab-runner
 
 #run below commands with user privileges
 #/usr/bin/sudo -n -H -u ubuntu /bin/bash -l -c '
