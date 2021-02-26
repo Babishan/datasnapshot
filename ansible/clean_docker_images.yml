@@ -1,0 +1,7 @@
+- name: Clean up
+  hosts: localhost
+  tasks:
+    - name: stop docker containers
+      command: docker container stop $(docker container ls -aq)
+    - name: remove docker containers
+      command: docker container rm $(docker container ls -aq)

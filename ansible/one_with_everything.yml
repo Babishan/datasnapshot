@@ -3,8 +3,9 @@
   tasks:
     - command: ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
     - command: ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
-    - command: ansible-playbook $ANSIBLE_DIR/start_database_server.yml
     - command: ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
     - command: ansible-playbook $ANSIBLE_DIR/start_development_service.yml
+    - command: ansible-playbook $ANSIBLE_DIR/validate_dev_service.yml
+    - command: ansible-playbook $ANSIBLE_DIR/start_database_server.yml
     - command: ansible-playbook $ANSIBLE_DIR/start_production_service.yml
-    - command: ansible-playbook $ANSIBLE_DIR/run_validator.yml
+    - command: ansible-playbook $ANSIBLE_DIR/validate_prod_service.yml

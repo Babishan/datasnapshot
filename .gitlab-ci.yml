@@ -4,7 +4,10 @@ variables:
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
 stages:
   - prepare
+  - clean
   - build
+  - deploy
+  - validate
 
 prepare-ansible:
   stage: prepare
@@ -17,52 +20,51 @@ prepare-ansible:
     - docker images
     - echo "Hello"
 
+clean-environment:
+  stage : clean
+  before_script:
+    - $PROJECT_DIR/mvnw clean
+  script:
+    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
+
 build-using-ansible:
   stage: build
   before_script:
     - ansible-galaxy collection install community.docker
-    - ansible-playbook ansible/create_docker_network.yml
-    - $PROJECT_DIR/mvnw clean package
   script:
-    - ansible-playbook ansible/build_docker_images.yml
-#
-#stages:
-#  - clean
-#  - build
-#  - deploy
-#
-#clean:
-#  stage: clean
-#  before_script:
-#    - apk update
-#    - apk add openjdk11-jre-headless
-#    - apk add docker-compose
-#  script:
-#    - docker-compose down -v --rmi all --remove-orphans
-#    - ./mvnw clean
-#  only:
-#    - master
-#
-#build:
-#  stage: build
-#  before_script:
-#    - apk update
-#    - apk add openjdk11-jre-headless
-#    - apk add docker-compose
-#  script:
-#    - ./mvnw package
-#    - docker-compose build
-#  only:
-#    - master
-#
-#deploy:
-#  stage: deploy
-#  before_script:
-#    - apk update
-#    - apk add openjdk11-jre-headless
-#    - apk add docker-compose
-#  script:
-#    - docker-compose up
-#  only:
-#    - master
-#  when: manual
+    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+    - PROJECT_DIR/mvnw package
+    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
+
+start-eureka-server:
+  stage: deploy
+  script: :
+    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+
+start-dev-service-using-ansible:
+  stage: deploy
+  script:
+    - ansible-playbook $ANSIBLE_DIR/start_development_service.yml
+
+validate-dev-service-using-ansible :
+  stage: validate
+  script:
+    - ansible-playbook $ANSIBLE_DIR/validate_dev_service.yml
+
+start-prod-service-using-ansible:
+  stage: deploy
+  before_script:
+    - ansible-playbook $ANSIBLE_DIR/start_database_server.yml
+  script:
+    - ansible-playbook $ANSIBLE_DIR/start_production_service.yml
+  only:
+    - master
+  when: manual
+
+validate-prod-service-using-ansible :
+  stage: validate
+  script:
+    - ansible-playbook $ANSIBLE_DIR/validate_prod_service.yml
+  only:
+    - master
+  when: manual
