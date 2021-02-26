@@ -1,7 +1,11 @@
+variables:
+  JAVA_HOME: /usr/lib/jvm/default-java
+
 stages:
   - prepare
+  - build
 
-prepare-docker:
+prepare-ansible:
   stage: prepare
   before_script:
     - ansible --version
@@ -11,11 +15,12 @@ prepare-docker:
     - docker images
     - echo "Hello"
 
-#image: docker:dind
-#
-#variables:
-#  JAVA_HOME: /usr/lib/jvm/default-java-11-openjdk
-#  DOCKER_HOST: "unix:///var/run/docker.sock"
+build-using-ansible:
+  stage: build
+  before_script:
+    - ansible-playbook asible/create_docker_network.yml
+  script:
+    - ansible-playbook ansible/build_docker_images.yml
 #
 #stages:
 #  - clean
