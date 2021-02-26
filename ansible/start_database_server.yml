@@ -1,7 +1,8 @@
 - name: Start postgres db server
   hosts:  localhost
   tasks:
-    - community.docker.docker_container:
+    #    - community.docker.docker_container:
+    - docker_container:
         name: postgres
         hostname: postgres
         image: postgres
