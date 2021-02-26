@@ -19,7 +19,7 @@ prepare-ansible:
 build-using-ansible:
   stage: build
   before_script:
-    - ansible-playbook asible/create_docker_network.yml
+    - ansible-playbook ansible/create_docker_network.yml
   script:
     - ansible-playbook ansible/build_docker_images.yml
 #
