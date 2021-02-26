@@ -2,6 +2,6 @@
   hosts: localhost
   tasks:
     - name: stop docker containers
-      command: docker container stop $(docker container ls -aq)
+      command: for f in docker ps -a -q; do docker stop $f; done
     - name: remove docker containers
-      command: docker container rm $(docker container ls -aq)
+      command: for f in docker ps -a -q; do docker rm $f; done
