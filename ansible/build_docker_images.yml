@@ -2,6 +2,6 @@
   hosts: localhost
   tasks:
     - name: Build management docker image
-      command: docker build -t babishan/management:1.0 ../management
+      command: docker build -t babishan/management:1.0 $PROJECT_DIR/management
     - name: Build webservice docker image
-      command: docker build -t babishan/webservice:1.0 ../webservice
+      command: docker build -t babishan/webservice:1.0 $PROJECT_DIR/webservice
