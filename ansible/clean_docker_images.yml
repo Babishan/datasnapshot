@@ -1,5 +1,5 @@
 - name: Clean up
-  hosts: localhost
+  hosts: $DOCKER_HOST
   tasks:
     - name: stop docker containers
       command: /bin/sh -c 'for f in `docker ps -a -q`; do docker stop $f; done'

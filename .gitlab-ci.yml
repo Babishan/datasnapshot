@@ -44,20 +44,28 @@ clean-prod-environment:
   script:
     - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
 
-#build-using-ansible:
-#  stage: build
-#  before_script:
-#    - ansible-galaxy collection install community.docker
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-#    - $PROJECT_DIR/mvnw package
-#    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
-#
-#start-eureka-server:
-#  stage: deploy
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
-#
+build-using-ansible:
+  stage: build
+  before_script:
+    - ansible-galaxy collection install community.docker
+  script:
+    - $PROJECT_DIR/mvnw package
+    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
+
+start-dev-eureka-server:
+  stage: deploy
+  before_script:
+    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+  script:
+    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+
+start-prod-eureka-server:
+  stage: deploy
+  before_script:
+    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+  script:
+    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+
 #start-dev-service-using-ansible:
 #  stage: deploy
 #  script:
