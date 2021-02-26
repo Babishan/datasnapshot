@@ -34,7 +34,7 @@ build-using-ansible:
     - ansible-galaxy collection install community.docker
   script:
     - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-    - PROJECT_DIR/mvnw package
+    - $PROJECT_DIR/mvnw package
     - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
 
 start-eureka-server:
