@@ -9,7 +9,7 @@ prepare-ansible:
   stage: prepare
   before_script:
     - ansible --version
-    - ls -ltr
+    - env
   script:
     - echo "Hello"
     - docker ps -a
