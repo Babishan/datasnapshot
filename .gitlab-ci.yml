@@ -2,6 +2,7 @@ variables:
   JAVA_HOME: /usr/lib/jvm/default-java
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
+
 stages:
   - prepare
   - clean
@@ -38,7 +39,7 @@ build-using-ansible:
 
 start-eureka-server:
   stage: deploy
-  script: :
+  script:
     - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
 
 start-dev-service-using-ansible:
