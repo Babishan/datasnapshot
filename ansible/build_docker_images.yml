@@ -1,24 +1,30 @@
-- name: Build docker images
+- name: Create required Directories
   hosts: all
   tasks:
     - name: Create management directory
-      command: mkdir -p management
+      command: mkdir -p management/target
     - name: Create webservice directory
-      command: mkdir -p webservice
-    - name: Create target directory
-      command: mkdir -p target
-    - name: Copy jars to remote
-      copy:
-        - src: $PROJECT_DIR/management/target/management-0.0.1.jar
-          dest: target/management-0.0.1.jar
-        - src: $PROJECT_DIR/management/target/webservice-0.0.1.jar
+      command: mkdir -p webservice/target
+
+- name: Copy required artifacts
+  hosts: all
+  tasks:
+    - copy:
+        src: $PROJECT_DIR/management/target/management-0.0.1.jar
+        dest: target/management-0.0.1.jar
+    - copy:
+          src: $PROJECT_DIR/management/target/webservice-0.0.1.jar
           dest: target/webservice-0.0.1.jar
-    - name: Copy Dockerfile to remote
-      copy:
-        - src: $PROJECT_DIR/management/Dockerfile
+    - copy:
+          src: $PROJECT_DIR/management/Dockerfile
           dest: management/Dockerfile
-        - src: $PROJECT_DIR/webservice/Dockerfile
+    - copy:
+          src: $PROJECT_DIR/webservice/Dockerfile
           dest: webservice/Dockerfile
+
+- name: Build docker images
+  hosts: all
+  tasks:
     - name: Build management docker image
       command: docker build -t babishan/management:1.0 management
     - name: Build webservice docker image
