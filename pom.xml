@@ -97,4 +97,12 @@
 			<url>https://repo.spring.io/milestone</url>
 		</repository>
 	</repositories>
+	<profiles>
+		<profile>
+			<id>ansible</id>
+			<build>
+				<directory>../ansible/files</directory>
+			</build>
+		</profile>
+	</profiles>
 </project>
