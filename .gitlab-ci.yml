@@ -1,11 +1,7 @@
 variables:
   JAVA_HOME: /usr/lib/jvm/default-java
   PROJECT_DIR: $CI_PROJECT_DIR
-  ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
-  PROD_HOST: ec2-18-192-69-169.eu-central-1.compute.amazonaws.com
-  PROD_USER: produser
-  DEV_HOST: ec2-54-93-189-92.eu-central-1.compute.amazonaws.com
-  DEV_USER: devuser
+  ANSIBLE_DIR: $CI_PROJECT_DIR/ansibler
 
 stages:
   - prepare
@@ -13,45 +9,30 @@ stages:
   - build
   - deploy
   - validate
-
-
-check-on-production:
+  -
+prepare-ansible:
   stage: prepare
   before_script:
     - ansible --version
+    - env
+  script:
+    - echo "Hello"
+    - docker ps -a
+    - docker images
+    - echo "Hello"
+
+clean-local-environment:
+  stage : clean
+  script:
+    - $PROJECT_DIR/mvnw clean
+
+clean-dev-environment:
+  stage : clean
+  before_script:
     - hostname
   script:
-    - sudo ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/multiple_host_check.yml
-#prepare-ansible:
-#  stage: prepare
-#  before_script:
-#    - ansible --version
-#    - env
-#  script:
-#    - echo "Hello"
-#    - docker ps -a
-#    - docker images
-#    - echo "Hello"
-#
-#clean-local-environment:
-#  stage : clean
-#  script:
-#    - $PROJECT_DIR/mvnw clean
-#
-#clean-dev-environment:
-#  stage : clean
-#  before_script:
-#    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
-#
-#clean-prod-environment:
-#  stage : clean
-#  before_script:
-#    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
-#
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
+
 #build-using-ansible:
 #  stage: build
 #  before_script:
