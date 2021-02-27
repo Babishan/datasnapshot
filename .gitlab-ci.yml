@@ -51,7 +51,7 @@ start-dev-service-using-ansible:
   stage: deploy
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_development_service.yml
-    
+
 start-prod-service-using-ansible:
   stage: deploy
   before_script:

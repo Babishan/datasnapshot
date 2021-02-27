@@ -10,16 +10,16 @@
   hosts: all
   tasks:
     - copy:
-        src: $PROJECT_DIR//management/target/management-0.0.1.jar
+        src: ../../management/target/management-0.0.1.jar
         dest: management/target/management-0.0.1.jar
     - copy:
-          src: $PROJECT_DIR//webservice/target/webservice-0.0.1.jar
+          src: ../../webservice/target/webservice-0.0.1.jar
           dest: webservice/target/webservice-0.0.1.jar
     - copy:
-          src: $PROJECT_DIR//management/Dockerfile
+          src: ../../management/Dockerfile
           dest: management/Dockerfile
     - copy:
-          src: $PROJECT_DIR/webservice/Dockerfile
+          src: ../../webservice/Dockerfile
           dest: webservice/Dockerfile
 
 - name: Build docker images
