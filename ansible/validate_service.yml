@@ -2,8 +2,8 @@
   hosts: all
   connection: local
   tasks:
-    - name: Wait for the  service to be up
-      command: sleep 30
+   - name: Wait for the  service to be up
+     command: sleep 30
    - name: validate eureka server
      uri:
        url: http://localhost:8761
