@@ -1,0 +1,7 @@
+- name: Ansible multiple host management
+  remote_user: gitlab-runner
+  sudo: yes
+  hosts: datasnapshot-group
+  tasks:
+    - command: hostname
+    - command: whoami

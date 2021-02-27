@@ -14,51 +14,60 @@ stages:
   - deploy
   - validate
 
-prepare-ansible:
+
+check-on-production:
   stage: prepare
   before_script:
     - ansible --version
-    - env
+    - hostname
   script:
-    - echo "Hello"
-    - docker ps -a
-    - docker images
-    - echo "Hello"
-
-clean-local-environment:
-  stage : clean
-  script:
-    - $PROJECT_DIR/mvnw clean
-
-clean-dev-environment:
-  stage : clean
-  before_script:
-    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
-  script:
-    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
-
-clean-prod-environment:
-  stage : clean
-  before_script:
-    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
-  script:
-    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
-
-build-using-ansible:
-  stage: build
-  before_script:
-    - ansible-galaxy collection install community.docker
-  script:
-    - $PROJECT_DIR/mvnw package
-    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
-
-start-dev-eureka-server:
-  stage: deploy
-  before_script:
-    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
-    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-  script:
-    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+    - ansible-playbook -b -v -u gitlab-runner $ANSIBLE_DIR/multiple_host_check.yml -kkkk --extra-vars "datasnapshot-group" -i $ANSIBLE_DIR/production
+    - ansible-playbook -b -v -u gitlab-runner $ANSIBLE_DIR/multiple_host_check.yml -kkkk --extra-vars "datasnapshot-group" -i $ANSIBLE_DIR/development
+#prepare-ansible:
+#  stage: prepare
+#  before_script:
+#    - ansible --version
+#    - env
+#  script:
+#    - echo "Hello"
+#    - docker ps -a
+#    - docker images
+#    - echo "Hello"
+#
+#clean-local-environment:
+#  stage : clean
+#  script:
+#    - $PROJECT_DIR/mvnw clean
+#
+#clean-dev-environment:
+#  stage : clean
+#  before_script:
+#    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
+#
+#clean-prod-environment:
+#  stage : clean
+#  before_script:
+#    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
+#
+#build-using-ansible:
+#  stage: build
+#  before_script:
+#    - ansible-galaxy collection install community.docker
+#  script:
+#    - $PROJECT_DIR/mvnw package
+#    - ansible-playbook $ANSIBLE_DIR/build_docker_images.yml
+#
+#start-dev-eureka-server:
+#  stage: deploy
+#  before_script:
+#    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
+#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
 
 #start-prod-eureka-server:
 #  stage: deploy
