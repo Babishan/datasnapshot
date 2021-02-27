@@ -1,6 +1,8 @@
 - name: Clean up
   hosts: development
   tasks:
+    - name: Check which host
+      command: hostname
     - name: stop docker containers
       command: /bin/sh -c 'for f in `docker ps -a -q`; do docker stop $f; done'
     - name: remove docker containers

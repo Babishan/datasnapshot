@@ -28,8 +28,6 @@ clean-local-environment:
 
 clean-dev-environment:
   stage : clean
-  before_script:
-    - hostname
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
 
