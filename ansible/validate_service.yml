@@ -4,12 +4,12 @@
   tasks:
    - name: Wait for the  service to be up
      command: sleep 30
-   - name: validate eureka server
-     uri:
-       url: http://$HOSTNAME:8761
-       return_content: yes
-     register: eureka
-     failed_when: "'Instances currently registered with Eureka' not in eureka.content"
+#   - name: validate eureka server
+#     uri:
+#       url: http://$HOST:8761
+#       return_content: yes
+#     register: eureka
+#     failed_when: "'Instances currently registered with Eureka' not in eureka.content"
    - name: validate webservice
      uri:
        url: http://$HOSTNAME:8080/login

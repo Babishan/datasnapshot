@@ -25,7 +25,7 @@ prepare-ansible:
 clean-local:
   stage : clean
   script:
-    - $PROJECT_DIR/mvnw clean
+    - $PROJECT_DIR/mvnw clean -Pansible
 
 clean-remote:
   stage : clean
