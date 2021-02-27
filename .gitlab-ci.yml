@@ -21,8 +21,7 @@ check-on-production:
     - ansible --version
     - hostname
   script:
-    - ansible-playbook -b -v -u gitlab-runner $ANSIBLE_DIR/multiple_host_check.yml -kkkk --extra-vars "datasnapshot-group" -i $ANSIBLE_DIR/production
-    - ansible-playbook -b -v -u gitlab-runner $ANSIBLE_DIR/multiple_host_check.yml -kkkk --extra-vars "datasnapshot-group" -i $ANSIBLE_DIR/development
+    - ansible-playbook -b -vvvv -u gitlab-runner $ANSIBLE_DIR/multiple_host_check.yml
 #prepare-ansible:
 #  stage: prepare
 #  before_script:
