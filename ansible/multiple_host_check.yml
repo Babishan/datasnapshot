@@ -1,7 +1,5 @@
 - name: Ansible multiple host management
   remote_user: ubuntu
-  become: True
-  become_method: sudo
   hosts: all
   tasks:
     - command: hostname
