@@ -19,7 +19,8 @@ prepare-ansible:
     - echo "Hello"
     - docker ps -a
     - docker images
-    - echo "Hello"
+    - echo $PROJECT_DIR
+    - echo $ANSIBLE_DIR
 
 clean-local:
   stage : clean
@@ -31,14 +32,10 @@ clean-remote:
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
 
-build-on-local:
-  stage: build
-  script:
-    - $PROJECT_DIR/mvnw package
-
 build-docker-images-on-remote:
   stage: build
   before_script:
+    - $PROJECT_DIR/mvnw package
     - ansible-galaxy collection install community.docker
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
