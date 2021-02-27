@@ -60,13 +60,13 @@ start-dev-eureka-server:
   script:
     - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
 
-start-prod-eureka-server:
-  stage: deploy
-  before_script:
-    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
-    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-  script:
-    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+#start-prod-eureka-server:
+#  stage: deploy
+#  before_script:
+#    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
+#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
 
 #start-dev-service-using-ansible:
 #  stage: deploy
