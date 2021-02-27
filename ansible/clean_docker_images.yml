@@ -1,5 +1,5 @@
 - name: Clean up
-  hosts: development
+  hosts: all
   tasks:
     - name: Check which host
       command: hostname
