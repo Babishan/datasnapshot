@@ -1,5 +1,5 @@
 - name: Create a network
-  hosts:  $DOCKER_HOST
+  hosts:  all
   tasks:
     - community.docker.docker_network:
         name: datasnapshot
