@@ -35,7 +35,7 @@ clean-remote:
 build-docker-images-on-remote:
   stage: build
   before_script:
-    - $PROJECT_DIR/mvnw package
+    - $PROJECT_DIR/mvnw install -Pansible
     - ansible-galaxy collection install community.docker
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
