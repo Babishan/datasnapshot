@@ -21,7 +21,7 @@ prepare-ansible:
     - docker images
     - echo "Hello"
 
-clean-local-environment:
+clean-local:
   stage : clean
   script:
     - $PROJECT_DIR/mvnw clean
@@ -36,7 +36,7 @@ build-on-local:
   script:
     - $PROJECT_DIR/mvnw package
 
-build-docker-image-remote:
+build-docker-images-on-remote:
   stage: build
   before_script:
     - ansible-galaxy collection install community.docker
