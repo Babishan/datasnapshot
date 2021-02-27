@@ -9,7 +9,7 @@ stages:
   - build
   - deploy
   - validate
-  -
+
 prepare-ansible:
   stage: prepare
   before_script:
