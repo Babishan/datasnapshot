@@ -1,7 +1,7 @@
 variables:
   JAVA_HOME: /usr/lib/jvm/default-java
   PROJECT_DIR: $CI_PROJECT_DIR
-  ANSIBLE_DIR: $CI_PROJECT_DIR/ansibler
+  ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
 
 stages:
   - prepare
