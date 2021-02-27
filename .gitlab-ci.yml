@@ -21,7 +21,8 @@ check-on-production:
     - ansible --version
     - hostname
   script:
-    - sudo ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/multiple_host_check.yml
+    - whoami
+    - groups $USER
 #prepare-ansible:
 #  stage: prepare
 #  before_script:
