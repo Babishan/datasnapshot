@@ -1,5 +1,5 @@
 - name: Start postgres db server
-  hosts:  localhost
+  hosts:  production
   tasks:
     #    - community.docker.docker_container:
     - docker_container:

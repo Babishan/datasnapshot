@@ -40,46 +40,32 @@ build-docker-images-on-remote:
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
 
-#start-dev-eureka-server:
-#  stage: deploy
-#  before_script:
-#    - DOCKER_HOST="ssh://$DEV_USER@DEV_HOST";export DOCKER_HOST
-#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+start-eureka-server:
+  stage: deploy
+  before_script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/create_docker_network.yml
+  script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_eureka_server.yml
 
-#start-prod-eureka-server:
-#  stage: deploy
-#  before_script:
-#    - DOCKER_HOST="ssh://$PROD_USER@$PROD_HOST";export DOCKER_HOST
-#    - ansible-playbook $ANSIBLE_DIR/create_docker_network.yml
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/start_eureka_server.yml
+start-dev-service-using-ansible:
+  stage: deploy
+  script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_development_service.yml
+    
+start-prod-service-using-ansible:
+  stage: deploy
+  before_script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_database_server.yml
+  script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_production_service.yml
+  only:
+    - master
+  when: manual
 
-#start-dev-service-using-ansible:
-#  stage: deploy
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/start_development_service.yml
-#
-#validate-dev-service-using-ansible :
-#  stage: validate
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/validate_dev_service.yml
-#
-#start-prod-service-using-ansible:
-#  stage: deploy
-#  before_script:
-#    - ansible-playbook $ANSIBLE_DIR/start_database_server.yml
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/start_production_service.yml
-#  only:
-#    - master
-#  when: manual
-#
-#validate-prod-service-using-ansible :
-#  stage: validate
-#  script:
-#    - ansible-playbook $ANSIBLE_DIR/validate_prod_service.yml
-#  only:
-#    - master
-#  when: manual
+validate-prod-service-using-ansible :
+  stage: validate
+  script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/validate_service.yml
+  only:
+    - master
+  when: manual

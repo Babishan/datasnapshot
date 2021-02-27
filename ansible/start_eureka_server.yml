@@ -1,5 +1,5 @@
 - name: Start Eureka server
-  hosts: $DOCKER_HOST
+  hosts: all
   tasks:
 #    - community.docker.docker_container:
     - docker_container:
