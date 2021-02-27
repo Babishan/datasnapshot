@@ -62,7 +62,7 @@ start-prod-service-using-ansible:
     - master
 #  when: manual
 
-validate-prod-service-using-ansible :
+validate-using-ansible :
   stage: validate
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/validate_service.yml
