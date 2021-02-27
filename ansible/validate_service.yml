@@ -6,13 +6,13 @@
      command: sleep 30
    - name: validate eureka server
      uri:
-       url: http://localhost:8761
+       url: http://$HOSTNAME:8761
        return_content: yes
      register: eureka
      failed_when: "'Instances currently registered with Eureka' not in eureka.content"
    - name: validate webservice
      uri:
-       url: http://localhost:8080/login
+       url: http://$HOSTNAME:8080/login
        return_content: yes
      register: service
      failed_when: "'Please sign in' not in service.content"
