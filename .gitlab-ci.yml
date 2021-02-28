@@ -29,9 +29,7 @@ clean-local:
     - $PROJECT_DIR/mvnw clean -Pansible
 
 clean-remote:
-  stage :
-    - clean
-    - undeploy
+  stage : clean
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
 
@@ -79,3 +77,12 @@ validate-development-serviceusing-ansible :
     - ansible-playbook $ANSIBLE_DIR/validate_development_service.yml
   only:
     - master
+
+
+undeploy-remote-services:
+  stage : undeploy
+  script:
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
+  only:
+    - master
+  when: manual
