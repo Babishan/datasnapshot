@@ -1,9 +1,12 @@
 - hosts: localhost
   name: Create AWS infrastructure with Terraforms
   vars:
-    terraform_dir: $TERRAFORM_DIR
+    terraform_dir: ../terraform
 
   tasks:
+    - name: terraform init
+      command: terraform init
+      
     - name: Create AWS production instances with Terraform
       terraform:
         project_path: "{{ terraform_dir }}"
