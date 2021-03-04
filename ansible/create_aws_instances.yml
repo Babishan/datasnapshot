@@ -1,0 +1,65 @@
+- hosts: localhost
+  name: Create AWS infrastructure with Terraforms
+  vars:
+    terraform_dir: $TERRAFORM_DIR
+
+  tasks:
+    - name: Create AWS production instances with Terraform
+      terraform:
+        project_path: "{{ terraform_dir }}"
+        state: present
+      register: prod
+
+    - name: Add all instance public DNS to host group
+      add_host:
+        name: "{{ item }}"
+        groups: production
+      loop: "{{ prod.outputs.production.value }}"
+
+    - name: Create AWS development instances with Terraform
+      terraform:
+        project_path: "{{ terraform_dir }}"
+        state: present
+      register: dev
+
+    - name: Add all instance public DNS to host group
+      add_host:
+        name: "{{ item }}"
+        groups: development
+      loop: "{{ dev.outputs.production.value }}"
+
+- hosts: production
+  name: Do something with instances
+  user: ubuntu
+  become: yes
+  gather_facts: false
+  vars:
+    ansible_ssh_private_key_file: /etc/ansible/key
+
+  tasks:
+    - name: Wait for instances to become reachable over SSH
+      wait_for_connection:
+        delay: 60
+        timeout: 600
+
+
+    - name: Ping
+      ping:
+
+- hosts: development
+  name: Do something with instances
+  user: ubuntu
+  become: yes
+  gather_facts: false
+  vars:
+    ansible_ssh_private_key_file: /etc/ansible/key
+
+  tasks:
+    - name: Wait for instances to become reachable over SSH
+      wait_for_connection:
+        delay: 60
+        timeout: 600
+
+
+    - name: Ping
+      ping:

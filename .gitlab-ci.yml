@@ -2,6 +2,7 @@ variables:
   JAVA_HOME: /usr/lib/jvm/default-java
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
+  TERRAFORM_DIR: $CI_PROJECT_DIR/terraform
 
 stages:
   - prepare
@@ -22,67 +23,73 @@ prepare-ansible:
     - docker images
     - echo $PROJECT_DIR
     - echo $ANSIBLE_DIR
-
-clean-local:
-  stage : clean
-  script:
-    - $PROJECT_DIR/mvnw clean -Pansible
-
-clean-remote:
-  stage : clean
-  script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
-
-build-docker-images-on-remote:
-  stage: build
+    -
+create-hosts:
+  stage: prepare
   before_script:
-    - $PROJECT_DIR/mvnw install -Pansible
-    - ansible-galaxy collection install community.docker
   script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
+    - - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
 
-start-eureka-server:
-  stage: deploy
-  before_script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/create_docker_network.yml
-  script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_eureka_server.yml
+#clean-local:
+#  stage : clean
+#  script:
+#    - $PROJECT_DIR/mvnw clean -Pansible
+#
+#clean-remote:
+#  stage : clean
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
+#
+#build-docker-images-on-remote:
+#  stage: build
+#  before_script:
+#    - $PROJECT_DIR/mvnw install -Pansible
+#    - ansible-galaxy collection install community.docker
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
+#
+#start-eureka-server:
+#  stage: deploy
+#  before_script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/create_docker_network.yml
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_eureka_server.yml
+#
+#start-dev-service-using-ansible:
+#  stage: deploy
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_development_service.yml
+#
+#start-prod-service-using-ansible:
+#  stage: deploy
+#  before_script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_database_server.yml
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_production_service.yml
+#  only:
+#    - master
+##  when: manual
 
-start-dev-service-using-ansible:
-  stage: deploy
-  script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_development_service.yml
+#validate-production-serviceusing-ansible :
+#  stage: validate
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/validate_production_service.yml
+#  only:
+#    - master
+##  when: manual
 
-start-prod-service-using-ansible:
-  stage: deploy
-  before_script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_database_server.yml
-  script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_production_service.yml
-  only:
-    - master
+#validate-development-serviceusing-ansible :
+#  stage: validate
+#  script:
+#    - ansible-playbook $ANSIBLE_DIR/validate_development_service.yml
+#  only:
+#    - master
+#
+#
+#undeploy-remote-services:
+#  stage : undeploy
+#  script:
+#    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
+#  only:
+#    - master
 #  when: manual
-
-validate-production-serviceusing-ansible :
-  stage: validate
-  script:
-    - ansible-playbook $ANSIBLE_DIR/validate_production_service.yml
-  only:
-    - master
-#  when: manual
-
-validate-development-serviceusing-ansible :
-  stage: validate
-  script:
-    - ansible-playbook $ANSIBLE_DIR/validate_development_service.yml
-  only:
-    - master
-
-
-undeploy-remote-services:
-  stage : undeploy
-  script:
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
-  only:
-    - master
-  when: manual
