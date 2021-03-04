@@ -6,8 +6,6 @@ variables:
 
 stages:
   - prepare
-  - create
-  - check
   - clean
   - build
   - deploy
@@ -27,15 +25,10 @@ prepare-ansible:
     - echo $ANSIBLE_DIR
     - echo $TERRAFORM_DIR
 
-create-hosts:
-  stage: create
+create-aws-instances:
+  stage: prepare
   script:
     - ansible-playbook $ANSIBLE_DIR/create_aws_instances.yml
-
-check-aws-instance-availablity:
-  stage: check
-  script:
-    - ansible-playbook $ANSIBLE_DIR/check_aws_instance_availablity.yml
 
 clean-local:
   stage : clean
