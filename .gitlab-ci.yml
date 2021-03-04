@@ -28,7 +28,7 @@ create-hosts:
   stage: prepare
   before_script:
   script:
-    - - ansible-playbook $ANSIBLE_DIR/clean_docker_images.yml
+    - - ansible-playbook $ANSIBLE_DIR/create_aws_instances.yml
 
 #clean-local:
 #  stage : clean
