@@ -9,7 +9,6 @@
         project_path: "{{ terraform_dir }}"
         state: present
         force_init: yes
-        init_reconfigure: yes
       register: outputs
 
     - name: Add all instance public DNS to production host group
