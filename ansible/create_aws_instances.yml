@@ -6,7 +6,7 @@
   tasks:
     - name: terraform init
       command: terraform init
-      
+
     - name: Create AWS production instances with Terraform
       terraform:
         project_path: "{{ terraform_dir }}"
@@ -40,7 +40,7 @@
     ansible_ssh_private_key_file: /etc/ansible/key
 
   tasks:
-    - name: Wait for instances to become reachable over SSH
+    - name: Wait for production instances to become reachable over SSH
       wait_for_connection:
         delay: 60
         timeout: 600
@@ -58,7 +58,7 @@
     ansible_ssh_private_key_file: /etc/ansible/key
 
   tasks:
-    - name: Wait for instances to become reachable over SSH
+    - name: Wait for development instances to become reachable over SSH
       wait_for_connection:
         delay: 60
         timeout: 600
