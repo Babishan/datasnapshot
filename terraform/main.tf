@@ -4,7 +4,13 @@ provider "aws" {
 //  access_key = var.access_key
 //  secret_key = var.secret_key
 }
-
+terraform {
+  backend "s3" {
+    region = var.region
+    bucket = "gitlab-ansible-terraform-bucket"
+    key    = "tfstates/terraform.tfstate"
+  }
+}
 #Define ec2 instance
 resource "aws_instance" "production" {
   count = 1
