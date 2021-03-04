@@ -4,29 +4,25 @@
     terraform_dir: ../terraform
 
   tasks:
-    - name: Create AWS production instances with Terraform
+    - name: Create AWS all instances with Terraform
       terraform:
         project_path: "{{ terraform_dir }}"
         state: present
-      register: prod
+        force_init: yes
+        init_reconfigure: yes
+      register: outputs
 
     - name: Add all instance public DNS to production host group
       add_host:
         name: "{{ item }}"
         groups: production
-      loop: "{{ prod.outputs.production.value }}"
-
-    - name: Create AWS development instances with Terraform
-      terraform:
-        project_path: "{{ terraform_dir }}"
-        state: present
-      register: dev
+      loop: "{{ outputs.outputs.production.value }}"
 
     - name: Add all instance public DNS to development host group
       add_host:
         name: "{{ item }}"
         groups: development
-      loop: "{{ dev.outputs.production.value }}"
+      loop: "{{ outputs.outputs.production.value }}"
 
 - hosts: production
   name: Do something with instances
