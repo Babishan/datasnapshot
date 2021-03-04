@@ -6,6 +6,7 @@ provider "aws" {
 }
 terraform {
   backend "s3" {
+    region = "eu-central-1"
     bucket = "gitlab-ansible-terraform-bucket"
     key    = "tfstates/terraform.tfstate"
   }
