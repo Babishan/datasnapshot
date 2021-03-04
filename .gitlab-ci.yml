@@ -23,7 +23,7 @@ prepare-ansible:
     - docker images
     - echo $PROJECT_DIR
     - echo $ANSIBLE_DIR
-    -
+    - echo $TERRAFORM_DIR
 create-hosts:
   stage: prepare
   before_script:
