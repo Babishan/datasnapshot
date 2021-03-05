@@ -29,6 +29,7 @@ create-aws-instances:
   stage: prepare
   script:
     - ansible-playbook -vvvv $ANSIBLE_DIR/create_aws_instances.yml
+    - echo "Done"
 
 clean-local:
   stage : clean
