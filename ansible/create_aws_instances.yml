@@ -21,7 +21,7 @@
       add_host:
         name: "{{ item }}"
         groups: development
-      loop: "{{ outputs.outputs.production.value }}"
+      loop: "{{ outputs.outputs.development.value }}"
 
 - hosts: production
   name: Do something with instances
@@ -35,11 +35,9 @@
       prompt: "Are you sure you want to continue connecting (yes/no/[fingerprint])?"
       default: yes
   tasks:
-    - name: test
-      command: sudo ssh -vvv -tt -o requestTTY=no -o 'IdentityFile="/etc/ansible/key"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="ubuntu"' -o ConnectTimeout=10 ec2-18-197-171-181.eu-central-1.compute.amazonaws.com '/bin/sh -c '"'"'echo ~ubuntu && sleep 0'"'"''
-#    - name: Wait for production instances to become reachable over SSH
-#      wait_for_connection:
-#        delay: 60
-#        timeout: 600
+    - name: Wait for production instances to become reachable over SSH
+      wait_for_connection:
+        delay: 60
+        timeout: 600
 #    - name: Ping
 #      ping:
