@@ -25,7 +25,7 @@
 
 - hosts: all
   name: Do something with instances
-  user: gitlab-runner
+  user: ubuntu
   become: yes
   gather_facts: false
   vars:
