@@ -40,6 +40,6 @@
 #        delay: 60
 #        timeout: 600
     - name: wait
-      command: ssh -vvv -tt -o 'IdentityFile="/etc/ansible/key"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="ubuntu"' -o ConnectTimeout=10 {{ outputs.outputs.production.value }} '/bin/sh -c '"'"'echo ~ubuntu && sleep 0'"'"''
+      command: ssh -vvv -tt -o 'IdentityFile="/etc/ansible/key"' -o KbdInteractiveAuthentication=no -o PreferredAuthentications=gssapi-with-mic,gssapi-keyex,hostbased,publickey -o PasswordAuthentication=no -o 'User="ubuntu"' -o ConnectTimeout=10 ec2-18-197-171-181.eu-central-1.compute.amazonaws.com '/bin/sh -c '"'"'echo ~ubuntu && sleep 0'"'"''
     - name: Ping
       ping:
