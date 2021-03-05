@@ -21,7 +21,7 @@ resource "aws_instance" "production" {
   associate_public_ip_address = true
   key_name = "gitlab-runner"
   tags = {
-    Name = "aws-production-${count.index}"
+    Name = "production-${count.index}"
   }
 }
 
@@ -35,7 +35,7 @@ resource "aws_instance" "development" {
   associate_public_ip_address = true
   key_name = "gitlab-runner"
   tags = {
-    Name = "aws-development-${count.index}"
+    Name = "development-${count.index}"
   }
 }
 
