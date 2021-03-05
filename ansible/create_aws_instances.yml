@@ -17,15 +17,27 @@
         groups: production
       loop: "{{ outputs.outputs.production.value }}"
 
-    - command: echo "[production]" >> hosts/hosts
-    - command: echo "{{ item }}" >> hosts/hosts
+    - name: Add all instance public DNS to development host group
+      add_host:
+        name: "{{ item }}"
+        groups: development
+      loop: "{{ outputs.outputs.development.value }}"
+
+    - lineinfile:
+        path: inventory/hosts
+        line: "[production]"
+    - lineinfile:
+        path: inventory/hosts
+        line: "{{ item }}"
       loop: "{{ outputs.outputs.production.value }}"
-    - command: cat hosts/hosts
-#    - name: Add all instance public DNS to development host group
-#      add_host:
-#        name: "{{ item }}"
-#        groups: development
-#      loop: "{{ outputs.outputs.development.value }}"
+
+    - lineinfile:
+        path: inventory/hosts
+        line: "[development]"
+    - lineinfile:
+        path: inventory/hosts
+        line: "{{ item }}"
+      loop: "{{ outputs.outputs.development.value }}"
 
 #- hosts: production
 #  name: Do something with instances
