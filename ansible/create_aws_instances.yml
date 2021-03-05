@@ -35,9 +35,11 @@
       prompt: "Are you sure you want to continue connecting (yes/no/[fingerprint])?"
       default: yes
   tasks:
-    - name: Wait for production instances to become reachable over SSH
-      wait_for_connection:
-        delay: 60
-        timeout: 600
-#    - name: Ping
-#      ping:
+    -  name: sleep
+       command: sleep 60
+#    - name: Wait for production instances to become reachable over SSH
+#      wait_for_connection:
+#        delay: 60
+#        timeout: 600
+    - name: Ping
+      ping:
