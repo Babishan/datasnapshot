@@ -23,7 +23,7 @@
         groups: development
       loop: "{{ outputs.outputs.production.value }}"
 
-- hosts: all
+- hosts: production
   name: Do something with instances
   user: ubuntu
   become: yes
