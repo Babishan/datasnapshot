@@ -7,3 +7,5 @@
       command: /bin/sh -c 'for f in `docker ps -a -q`; do docker stop $f; done'
     - name: remove docker containers
       command: /bin/sh -c 'for f in `docker ps -a -q`; do docker rm $f; done'
+    - name: remove docker network
+      command: docker network rm datasnapshot
