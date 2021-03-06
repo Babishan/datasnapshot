@@ -5,11 +5,12 @@ variables:
   TERRAFORM_DIR: $CI_PROJECT_DIR/terraform
 
 stages:
+  - validate
   - prepare
   - clean
   - build
   - deploy
-  - validate
+#  - validate
   - undeploy
 
 prepare-ansible:
