@@ -56,6 +56,9 @@
         state: present
         update_cache: true
     - command: pip3 install docker docker-compose
+      name: ansible pip3 install docker and docker compose
+      become: true
+      become_user: root
     - name: Add user ubuntu to docker group
       become: true
       become_user: root
