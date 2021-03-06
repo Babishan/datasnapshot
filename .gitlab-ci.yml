@@ -3,7 +3,7 @@ variables:
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
   TERRAFORM_DIR: $CI_PROJECT_DIR/terraform
-  ANSIBLE_INVENTORY: $CI_PROJECT_DIR/ansible/inventory/hosts
+  ANSIBLE_CONFIG: /home/ubuntu/inventory/ansible.cfg
 
 stages:
   - prepare
