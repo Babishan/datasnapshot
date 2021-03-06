@@ -1,8 +1,5 @@
 - name: Clean up
   hosts: all
-  user: ubuntu
-  become: yes
-  become_method: sudo
   tasks:
     - name: Delete project directories
       command : rm -rfv management webservice

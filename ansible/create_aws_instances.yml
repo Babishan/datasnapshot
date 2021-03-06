@@ -28,7 +28,7 @@
         line: "[production]"
     - lineinfile:
         path: inventory/hosts
-        line: "{{ item }}"
+        line: "{{ item }}" ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/inventory/ansible.cfg
       loop: "{{ outputs.outputs.production.value }}"
 
     - lineinfile:
@@ -36,7 +36,7 @@
         line: "[development]"
     - lineinfile:
         path: inventory/hosts
-        line: "{{ item }}"
+        line: "{{ item }}" ansible_user=ubuntu ansible_ssh_private_key_file=/home/ubuntu/inventory/ansible.cfg
       loop: "{{ outputs.outputs.development.value }}"
     - copy:
         src: inventory/hosts
