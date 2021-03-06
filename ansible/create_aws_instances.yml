@@ -15,6 +15,7 @@
       add_host:
         name: "{{ item }}"
         groups: production
+        with_dict: dict
       loop: "{{ outputs.outputs.production.value }}"
 
     - name: Add all instance public DNS to development host group
