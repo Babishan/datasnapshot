@@ -43,15 +43,28 @@
         dest: /home/ubuntu/inventory/hosts
 
 
-- hosts: all
+- hosts: production
   tasks:
     - name: Ansible apt install package docker
       become: true
       become_user: root
       apt:
-        name: docker
+        name:
+          - docker
         state: present
         update_cache: true
+
+- hosts: development
+  tasks:
+    - name: Ansible apt install package docker
+      become: true
+      become_user: root
+      apt:
+        name:
+          - docker
+        state: present
+        update_cache: true
+
 #- hosts: production
 #  name: Do something with instances
 #  user: ubuntu
