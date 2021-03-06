@@ -42,7 +42,6 @@
         src: inventory/hosts
         dest: /home/ubuntu/inventory/hosts
 
-
 - hosts: all
   name: Install and configure docker
   tasks:
@@ -55,12 +54,12 @@
           - python3-pip
         state: present
         update_cache: true
-#    - name: ansible pip3 install docker and docker compose
-#      command: pip3 install docker docker-compose
-#    - name: Add user ubuntu to docker group
-#      become: true
-#      become_user: root
-#      command: usermod -aG docker ubuntu
+    - name: ansible pip3 install docker and docker compose
+      command: pip3 install docker docker-compose
+    - name: Add user ubuntu to docker group
+      become: true
+      become_user: root
+      command: usermod -aG docker ubuntu
 #- hosts: production
 #  name: Do something with instances
 #  user: ubuntu
