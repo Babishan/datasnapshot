@@ -51,10 +51,11 @@
       become_user: root
       apt:
         name:
-          - docker
-          - docker.io
+          - python3
+          - python3-pip
         state: present
         update_cache: true
+    - command: pip3 install docker docker-compose
     - name: Add user ubuntu to docker group
       become: true
       become_user: root
