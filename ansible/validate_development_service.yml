@@ -6,14 +6,14 @@
      command: sleep 30
    - name: validate eureka server
      uri:
-       url: http://development:8761
+       url: http://{{inventory_hostname}}:8761
        return_content: yes
      register: eureka
      delegate_to: 127.0.0.1
      failed_when: "'Instances currently registered with Eureka' not in eureka.content"
    - name: validate webservice
      uri:
-       url: http://development:8080/login
+       url: http://{{inventory_hostname}}:8080/login
        return_content: yes
      register: service
      delegate_to: 127.0.0.1
