@@ -3,7 +3,6 @@ variables:
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
   TERRAFORM_DIR: $CI_PROJECT_DIR/terraform
-  ANSIBLE_CFG: /home/ubuntu/inventory/ansible.cfg
 
 stages:
   - prepare
@@ -39,8 +38,6 @@ clean-local:
 
 clean-remote:
   stage : clean
-  before_script:
-    - ANSIBLE_CONFIG=/home/ubuntu/inventory/ansible.cfg;export ANSIBLE_CONFIG
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
 
