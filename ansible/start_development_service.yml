@@ -1,14 +1,16 @@
 - name: Start Development webservice
   hosts: development
   tasks:
+    - name: Start Development webservice
+      command: docker run -tid -p 8080:8080 -e SPRING_PROFILES_ACTIVE=dev --network=datasnapshot --name devservice babishan/webservice:1.0
     #    - community.docker.docker_container:
-    - docker_container:
-        name: devservice
-        hostname: devservice
-        image: babishan/webservice:1.0
-        restart: yes
-        ports:
-          - "8080:8080"
-        env:
-          SPRING_PROFILES_ACTIVE: dev
-        network_mode: datasnapshot
+#    - docker_container:
+#        name: devservice
+#        hostname: devservice
+#        image: babishan/webservice:1.0
+#        restart: yes
+#        ports:
+#          - "8080:8080"
+#        env:
+#          SPRING_PROFILES_ACTIVE: dev
+#        network_mode: datasnapshot

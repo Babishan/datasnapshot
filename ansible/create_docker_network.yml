@@ -1,8 +1,10 @@
 - name: Create a network
   hosts:  all
   tasks:
-    - community.docker.docker_network:
-        name: datasnapshot
+    - name: docker network
+      command: docker network create datasnapshot
+#    - community.docker.docker_network:
+#        name: datasnapshot
 
 
 #- name: Pull ubuntu base image

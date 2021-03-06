@@ -1,16 +1,18 @@
 - name: Start postgres db server
   hosts:  production
   tasks:
+    - name: starting postgress server
+      command: docker run -p 5432:5432 --name postgres -e POSTGRES_DB=datasnapshot -e POSTGRES_USER=dbuser -e POSTGRES_PASSWORD=dbpassword --network=datasnapshot -d postgres
     #    - community.docker.docker_container:
-    - docker_container:
-        name: postgres
-        hostname: postgres
-        image: postgres
-        restart: yes
-        ports:
-        - "5432:5432"
-        env:
-          POSTGRES_DB: datasnapshot
-          POSTGRES_USER: dbuser
-          POSTGRES_PASSWORD: dbpassword
-        network_mode: datasnapshot
+#    - docker_container:
+#        name: postgres
+#        hostname: postgres
+#        image: postgres
+#        restart: yes
+#        ports:
+#        - "5432:5432"
+#        env:
+#          POSTGRES_DB: datasnapshot
+#          POSTGRES_USER: dbuser
+#          POSTGRES_PASSWORD: dbpassword
+#        network_mode: datasnapshot

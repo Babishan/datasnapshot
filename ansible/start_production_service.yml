@@ -1,14 +1,16 @@
 - name: Start Production webservice
   hosts: production
   tasks:
+    - name: Start Production webservice
+      command: docker run -tid -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod --network=datasnapshot --name prodservice babishan/webservice:1.0
     #    - community.docker.docker_container:
-    - docker_container:
-        name: prodservice
-        hostname: prodservice
-        image: babishan/webservice:1.0
-        restart: yes
-        ports:
-          - "8080:8080"
-        env:
-          SPRING_PROFILES_ACTIVE: prod
-        network_mode: datasnapshot
+#    - docker_container:
+#        name: prodservice
+#        hostname: prodservice
+#        image: babishan/webservice:1.0
+#        restart: yes
+#        ports:
+#          - "8080:8080"
+#        env:
+#          SPRING_PROFILES_ACTIVE: prod
+#        network_mode: datasnapshot
