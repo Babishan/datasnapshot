@@ -1,19 +1,19 @@
 - name: prod validator
-  hosts: all
+  hosts: development
   connection: local
   tasks:
    - name: Wait for the  service to be up
      command: sleep 30
    - name: validate eureka server
      uri:
-       url: http://localhost:8761
+       url: http://development:8761
        return_content: yes
      register: eureka
      delegate_to: 127.0.0.1
      failed_when: "'Instances currently registered with Eureka' not in eureka.content"
    - name: validate webservice
      uri:
-       url: http://localhost:8080/login
+       url: http://development:8080/login
        return_content: yes
      register: service
      delegate_to: 127.0.0.1
