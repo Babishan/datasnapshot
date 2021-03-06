@@ -3,6 +3,7 @@ variables:
   PROJECT_DIR: $CI_PROJECT_DIR
   ANSIBLE_DIR: $CI_PROJECT_DIR/ansible
   TERRAFORM_DIR: $CI_PROJECT_DIR/terraform
+  ANSIBLE_CFG: /home/ubuntu/inventory/ansible.cfg
 
 stages:
   - prepare
@@ -39,7 +40,7 @@ clean-local:
 clean-remote:
   stage : clean
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/clean_docker_images.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
 
 build-docker-images-on-remote:
   stage: build
@@ -47,26 +48,26 @@ build-docker-images-on-remote:
     - $PROJECT_DIR/mvnw install -Pansible
     - ansible-galaxy collection install community.docker
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/build_docker_images.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/build_docker_images.yml
 
 start-eureka-server:
   stage: deploy
   before_script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/create_docker_network.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/create_docker_network.yml
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/start_eureka_server.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_eureka_server.yml
 
 start-dev-service-using-ansible:
   stage: deploy
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/start_development_service.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_development_service.yml
 
 start-prod-service-using-ansible:
   stage: deploy
   before_script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/start_database_server.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_database_server.yml
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/start_production_service.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/start_production_service.yml
   only:
     - master
 #  when: manual
@@ -90,7 +91,7 @@ validate-development-serviceusing-ansible :
 undeploy-remote-services:
   stage : undeploy
   script:
-    - ansible-playbook -b -vvvv -u ubuntu -i /home/ubuntu/inventory/hosts --private-key /home/ubuntu/inventory/newkey $ANSIBLE_DIR/clean_docker_images.yml
+    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
   only:
     - master
   when: manual
