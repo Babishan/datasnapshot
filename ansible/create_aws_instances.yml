@@ -15,7 +15,6 @@
       add_host:
         name: "{{ item }}"
         groups: production
-        with_dict: dict
       loop: "{{ outputs.outputs.production.value }}"
 
     - name: Add all instance public DNS to development host group
@@ -39,6 +38,9 @@
         path: inventory/hosts
         line: "{{ item }}"
       loop: "{{ outputs.outputs.development.value }}"
+    - copy:
+        src: inventory/hosts
+        dest: /home/ubuntu/inventory/hosts
 
 #- hosts: production
 #  name: Do something with instances
