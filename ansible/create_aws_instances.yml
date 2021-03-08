@@ -23,13 +23,13 @@
         groups: development
       loop: "{{ outputs.outputs.development.value }}"
 
-    - name: Add all instances to ssh know host list
-      command: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
-      loop: "{{ outputs.outputs.production.value }}"
-
-    - name: Add all instances to ssh know host list
-      command: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
-      loop: "{{ outputs.outputs.development.value }}"
+#    - name: Add all instances to ssh know host list
+#      command: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
+#      loop: "{{ outputs.outputs.production.value }}"
+#
+#    - name: Add all instances to ssh know host list
+#      command: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
+#      loop: "{{ outputs.outputs.development.value }}"
 
     - lineinfile:
         path: inventory/hosts
