@@ -1,8 +1,0 @@
-- hosts: localhost
-  name: Destroy AWS infrastructure with Terraforms
-  vars:
-    terraform_dir: ../terraform
-
-  tasks:
-    - name: Create AWS all instances with Terraform
-      command: cd {{ terraform_dir }} && terraform destroy

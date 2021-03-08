@@ -71,7 +71,7 @@ start-prod-service-using-ansible:
     - master
 #  when: manual
 
-validate-production-serviceusing-ansible :
+validate-services-using-ansible :
   stage: validate
   script:
     - ansible-playbook $ANSIBLE_DIR/validate_services.yml
@@ -84,7 +84,6 @@ undeploy-remote-services:
   stage : undeploy
   script:
     - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/clean_docker_images.yml
-    - ansible-playbook -b -vvvv -u ubuntu $ANSIBLE_DIR/destroy_aws_instance.yml
   only:
     - master
   when: manual
