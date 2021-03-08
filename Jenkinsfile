@@ -1,13 +1,9 @@
 pipeline {
     agent any
-
-    tools {
-    maven 'Maven 3.8'
-    }
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean build -Pansible'
+                sh './mvnw clean build -Pansible'
             }
         }
         stage('Test') {
