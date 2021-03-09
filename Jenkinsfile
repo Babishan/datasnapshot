@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                 echo 'Cleaning..'
+                sh './mvnw clean -Pansible'
             }
         }
         stage('Build') {
