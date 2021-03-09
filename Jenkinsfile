@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Clean') {
             steps {
-                sh './mvnw clean -Pansible'
+                 echo 'Cleaning..'
             }
         }
         stage('Build') {
             steps {
-                sh './mvnw package -Pansible'
+                 echo 'Building..'
             }
         }
         stage('Test') {
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh './mvnw deploy -Pansible'
+               echo 'Deploying..'
             }
         }
     }
