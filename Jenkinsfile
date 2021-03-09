@@ -1,9 +1,14 @@
 pipeline {
     agent any
     stages {
+        stage('Clean') {
+            steps {
+                sh './mvnw clean -Pansible'
+            }
+        }
         stage('Build') {
             steps {
-                sh './mvnw clean package -Pansible'
+                sh './mvnw package -Pansible'
             }
         }
         stage('Test') {
