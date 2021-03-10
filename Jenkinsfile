@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh './mvnw compile -Pansible'
             }
         }
         stage('Test') {
