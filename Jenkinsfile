@@ -7,7 +7,7 @@ pipeline {
         stage('prepare') {
             steps {
                 sh './mvnw clean -Pansible'
-                echo $JAVA_HOME
+                sh 'echo $JAVA_HOME'
             }
         }
         stage('Build') {
