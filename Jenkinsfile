@@ -1,8 +1,8 @@
 pipeline {
     agent any
+    def JAVA_HOME='/usr/lib/jvm/default-java'
+    def ANSIBLE_DIR=$GITHUB_WORKSPACE/ansible
     stages {
-        def JAVA_HOME='/usr/lib/jvm/default-java'
-        def ANSIBLE_DIR=$GITHUB_WORKSPACE/ansible
         stage('prepare') {
             steps {
                 sh './mvnw clean -Pansible'

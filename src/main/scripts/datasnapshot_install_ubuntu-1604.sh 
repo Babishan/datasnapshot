@@ -2,9 +2,11 @@
 # To use in AWS EC2 user data script
 
 #run below commands with root privileges
+wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
 sudo apt upgrade -y
-sudo apt install curl git default-jdk -y
+sudo apt install curl git default-jdk jenkins -y
 sudo apt install docker docker-compose ansible -y
 curl -L "https://packages.gitlab.com/install/repositories/runner/gitlab-runner/script.deb.sh" | sudo bash
 export GITLAB_RUNNER_DISABLE_SKEL=true; sudo -E apt install gitlab-runner
