@@ -1,9 +1,13 @@
 pipeline {
     agent any
+    environment {
+        JAVA_HOME='/usr/lib/jvm/default-java'
+    }
     stages {
         stage('prepare') {
             steps {
                 sh './mvnw clean -Pansible'
+                echo $JAVA_HOME
             }
         }
         stage('Build') {
